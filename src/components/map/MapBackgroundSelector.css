@@ -1,0 +1,379 @@
+
+/* ==========================================
+   FIRELENS — MAP LAYERS & GEO OVERLAYS
+========================================== */
+
+/* ==========================================
+   1. LAYERS WIDGET POSITION
+========================================== */
+
+.map-layers-widget {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1100;
+
+  margin: 0;
+  padding: 0;
+
+  font-family: Inter, system-ui, sans-serif;
+}
+
+/* ==========================================
+   2. LAYERS BUTTON
+========================================== */
+
+.firelens-map .map-layers-trigger {
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  width: 165px;
+  height: 56px;
+  min-height: 56px;
+  max-height: 56px;
+
+  margin: 0;
+  padding: 0 16px;
+
+  background: #f8f9fb;
+  border: 1px solid #e9ebef;
+  border-radius: 16px;
+
+  color: #303640;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.map-layers-trigger svg {
+  flex-shrink: 0;
+}
+
+.map-layers-trigger:hover,
+.map-layers-trigger.open {
+  border-color: #f47735;
+  background: #ffffff;
+  box-shadow: 0 5px 18px rgba(244, 119, 53, 0.12);
+}
+
+/* ==========================================
+   3. LAYERS DROPDOWN
+========================================== */
+
+.map-layers-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+
+  box-sizing: border-box;
+  width: 245px;
+  max-width: calc(100vw - 24px);
+  max-height: min(70vh, 560px);
+  overflow-y: auto;
+
+  padding: 7px;
+
+  background: #ffffff;
+  border: 1px solid #e8eaed;
+  border-radius: 15px;
+
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
+}
+
+.map-layers-dropdown-header {
+  padding: 10px 12px;
+
+  color: #929aa5;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================
+   4. LAYER OPTIONS
+========================================== */
+
+.map-layers-option {
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  width: 100%;
+  min-height: 54px;
+  padding: 7px 10px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: transparent;
+  color: #48515d;
+
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.map-layers-option:hover {
+  background: #f6f7f9;
+}
+
+.map-layers-option.active {
+  background: #fff0e7;
+  color: #e86d38;
+  font-weight: 700;
+}
+
+.map-layers-option:focus-visible,
+.map-layers-trigger:focus-visible {
+  outline: 2px solid #f47735;
+  outline-offset: 2px;
+}
+
+/* ==========================================
+   5. CIRCULAR LAYER PREVIEWS
+========================================== */
+
+.map-layer-preview {
+  box-sizing: border-box;
+
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+
+  border-radius: 50%;
+  border: 2px solid #e4e7eb;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #dce4e8;
+
+  overflow: hidden;
+}
+
+.map-layers-option.active .map-layer-preview {
+  border-color: #f47735;
+}
+
+.firefly-preview {
+  filter: brightness(0.55) saturate(0.85) contrast(1.15);
+}
+
+.blue-marble-preview {
+  background: radial-gradient(
+    circle at 40% 35%,
+    #78b97a 0%,
+    #4d9c71 23%,
+    #1d729b 45%,
+    #133a72 75%,
+    #091e42 100%
+  );
+}
+
+.map-layer-label {
+  flex: 1;
+  min-width: 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.map-layer-check {
+  color: #f47735;
+  flex-shrink: 0;
+}
+
+/* ==========================================
+   6. LATITUDE / LONGITUDE GRID LABELS
+========================================== */
+
+.firelens-grid-label {
+  color: #ffffff;
+
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+
+  text-align: center;
+  white-space: nowrap;
+
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.95),
+    0 0 5px rgba(0, 0, 0, 0.9);
+
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Keep grid labels from blocking map interaction */
+
+.leaflet-marker-icon.firelens-grid-label {
+  pointer-events: none !important;
+  background: transparent;
+  border: none;
+}
+
+/* ==========================================
+   7. LATITUDE / LONGITUDE GRID TOGGLE
+========================================== */
+
+.firelens-grid-toggle {
+  position: absolute;
+  right: 20px;
+  bottom: 100px;
+  z-index: 1000;
+
+  box-sizing: border-box;
+  padding: 12px 16px;
+
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid #e8eaed;
+  border-radius: 12px;
+
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.firelens-grid-toggle label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  color: #263746;
+  font-size: 12px;
+  font-weight: 600;
+
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.firelens-grid-toggle input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+
+  accent-color: #f47735;
+  cursor: pointer;
+}
+
+/* ==========================================
+   8. LIVE COORDINATE DISPLAY
+========================================== */
+
+.firelens-coordinates {
+  position: absolute;
+  bottom: 20px;
+  left: 90px;
+  z-index: 1000;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+
+  max-width: calc(100% - 180px);
+  padding: 9px 13px;
+
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid #e8eaed;
+  border-radius: 9px;
+
+  color: #243547;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 500;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ==========================================
+   9. SCROLLBAR
+========================================== */
+
+.map-layers-dropdown::-webkit-scrollbar {
+  width: 5px;
+}
+
+.map-layers-dropdown::-webkit-scrollbar-thumb {
+  background: #d5dce3;
+  border-radius: 10px;
+}
+
+/* ==========================================
+   10. RESPONSIVE
+========================================== */
+
+@media (max-width: 600px) {
+  .map-layers-widget {
+    top: 12px;
+    right: 12px;
+  }
+
+  .firelens-map .map-layers-trigger {
+    width: 140px;
+    height: 48px;
+    min-height: 48px;
+    max-height: 48px;
+    padding: 0 12px;
+    border-radius: 13px;
+    font-size: 12px;
+  }
+
+  .map-layers-dropdown {
+    width: 220px;
+  }
+
+  .map-layer-preview {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+  }
+
+  .firelens-grid-toggle {
+    right: 12px;
+    bottom: 85px;
+    padding: 10px 12px;
+  }
+
+  .firelens-grid-toggle label {
+    font-size: 11px;
+  }
+
+  .firelens-coordinates {
+    left: 12px;
+    bottom: 12px;
+    max-width: calc(100% - 24px);
+    font-size: 10px;
+    padding: 7px 10px;
+  }
+}
